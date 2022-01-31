@@ -7,6 +7,7 @@ TagManager:
   - Zombie
   - FloorDead
   - Attack
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -44,6 +45,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Enemy
+    uniqueID: 3228258059
+    locked: 0
   - name: ObjBack
     uniqueID: 278796487
     locked: 0
@@ -59,8 +63,8 @@ TagManager:
   - name: Ornament
     uniqueID: 3179088309
     locked: 0
-  - name: Enemy
-    uniqueID: 3228258059
+  - name: Plataforms
+    uniqueID: 4119024167
     locked: 0
   - name: Attack
     uniqueID: 1288895789
