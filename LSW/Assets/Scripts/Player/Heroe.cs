@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace LSW.Heroe
@@ -18,6 +20,7 @@ namespace LSW.Heroe
         [SerializeField]
         private Transform groundCheck;
 
+        private SpriteRenderer sprite;
         private bool grounded;
         private bool jumping;
 
@@ -26,7 +29,17 @@ namespace LSW.Heroe
         private int maxJump;
         public int totalJump;
 
+        //Attack
+        public float attackRate;
+        public Transform spawnAttack;
+        public GameObject attackPrefab;
+        private float nextAttack;
+
+        //Sounds
+        private AudioSource fxSource;
+        public AudioClip fxHurt;
         public AudioClip fxJump;
+        public AudioClip fxAttack;
 
         void Start()
         {
@@ -34,9 +47,11 @@ namespace LSW.Heroe
             maxJump = 0;
             grounded = true;
             facingRight = true;
-            
+            nextAttack = 0f;
             rb2D = GetComponent<Rigidbody2D>();
-            anim = GetComponent<Animator>(); 
+            anim = GetComponent<Animator>();
+            sprite = GetComponent<SpriteRenderer>();
+            fxSource = GetComponent<AudioSource>();
         }
 
         private void Update()
@@ -48,7 +63,7 @@ namespace LSW.Heroe
 
             if (Input.GetButtonDown("Jump") && maxJump > 0)
             {
-               
+                PlaySound(fxJump);
                 grounded = false;
                 jumping = true;
             }
@@ -56,6 +71,11 @@ namespace LSW.Heroe
             if (grounded)
             {
                 maxJump = totalJump;
+            }
+
+            if (Input.GetButtonDown("Fire1") && grounded && Time.time > nextAttack && !anim.GetBool("Walk"))
+            {
+                Attack();
             }
 
             SetAnimations();
@@ -90,15 +110,69 @@ namespace LSW.Heroe
             if (isDead)
                 return;
 
-            if (other.CompareTag("FloorDead"))
-                Invoke("ReloadLevel", .5f);
+            if (other.CompareTag("Zombie"))
+                DamagePlayer();
 
+            if (other.CompareTag("FloorDead"))
+                Invoke("ReloadLevel", 1f);
         }
 
-        private void ReloadLevel()
+        IEnumerator DamageEffect()
+        {
+            sprite.enabled = false;
+            yield return new WaitForSeconds(.1f);
+            sprite.enabled = true;
+            yield return new WaitForSeconds(.1f);
+            sprite.enabled = false;
+            yield return new WaitForSeconds(.1f);
+            sprite.enabled = true;
+        }
+        public void PlaySound(AudioClip clip)
+        {
+            fxSource.clip = clip;
+            fxSource.Play();
+        }
+
+
+        private void DamagePlayer()
+        {
+            health--;
+            PlaySound(fxHurt);
+
+            if (health == 0)
+            {
+                isDead = true;
+                speed = 0;
+                rb2D.velocity = new Vector2(0f, 0f);
+                anim.SetTrigger("HeroeDead");
+                Invoke("ReloadLevel", 1f);
+            }
+            else
+            {
+                StartCoroutine(DamageEffect());
+            }
+        }
+
+        public void ReloadLevel()
         {
             SceneManager.LoadScene("Tier1", LoadSceneMode.Single);
         }
+
+        private void Attack()
+        {
+            PlaySound(fxAttack);
+
+            anim.SetTrigger("Attack");
+            nextAttack = Time.time + attackRate;
+
+            GameObject cloneAtk = Instantiate(attackPrefab, spawnAttack.position, spawnAttack.rotation);
+
+            if (!facingRight)
+            {
+                cloneAtk.transform.eulerAngles = new Vector3(180, 0, 180);
+            }
+        }
+
 
         private void SetAnimations()
         {

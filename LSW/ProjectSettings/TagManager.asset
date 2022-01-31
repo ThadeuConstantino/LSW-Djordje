@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Zombie
   - FloorDead
+  - Attack
   layers:
   - Default
   - TransparentFX
@@ -60,4 +61,7 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 3228258059
+    locked: 0
+  - name: Attack
+    uniqueID: 1288895789
     locked: 0
