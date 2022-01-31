@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace LSW.Heroe
 {
@@ -82,6 +83,21 @@ namespace LSW.Heroe
                 rb2D.velocity = new Vector2(rb2D.velocity.x, 0f);
                 rb2D.AddForce(new Vector2(0f, jumpforce));
             }
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (isDead)
+                return;
+
+            if (other.CompareTag("FloorDead"))
+                Invoke("ReloadLevel", .5f);
+
+        }
+
+        private void ReloadLevel()
+        {
+            SceneManager.LoadScene("Tier1", LoadSceneMode.Single);
         }
 
         private void SetAnimations()
