@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Zombie
+  - FloorDead
   layers:
   - Default
   - TransparentFX
@@ -56,4 +57,7 @@ TagManager:
     locked: 0
   - name: Ornament
     uniqueID: 3179088309
+    locked: 0
+  - name: Enemy
+    uniqueID: 3228258059
     locked: 0
