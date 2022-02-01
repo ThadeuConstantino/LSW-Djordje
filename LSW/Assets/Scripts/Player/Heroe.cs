@@ -155,7 +155,7 @@ namespace LSW.Heroe
 
         public void ReloadLevel()
         {
-            SceneManager.LoadScene("Tier1", LoadSceneMode.Single);
+            SceneManager.LoadScene("StartMenu", LoadSceneMode.Single);
         }
 
         private void Attack()
