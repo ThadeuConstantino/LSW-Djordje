@@ -1,5 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using LSW.MenuGame;
+using LSW.Static;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,30 +8,27 @@ namespace LSW.Heroe
 {
     public class Heroe : MonoBehaviour
     {
+        [Header("Configs Player - SCriptable Objects")]
+        [SerializeField]
+        private Player player;
+        [SerializeField]
+        private MenuInGame _menuInGame;
+
         private Rigidbody2D rb2D;
         private Animator anim;
-
-        public bool isDead;
-        public int health;
-
-        [SerializeField]
+        private bool isDead;
+        private int health;
         private int speed;
-        [SerializeField]
-        private float jumpforce;
+
         [SerializeField]
         private Transform groundCheck;
-
         private SpriteRenderer sprite;
         private bool grounded;
         private bool jumping;
-
         private bool facingRight;
-
         private int maxJump;
-        public int totalJump;
 
         //Attack
-        public float attackRate;
         public Transform spawnAttack;
         public GameObject attackPrefab;
         private float nextAttack;
@@ -40,6 +38,9 @@ namespace LSW.Heroe
         public AudioClip fxHurt;
         public AudioClip fxJump;
         public AudioClip fxAttack;
+
+        //Getters and Setters
+        public Player Player { get => player; set => player = value; }
 
         void Start()
         {
@@ -52,6 +53,10 @@ namespace LSW.Heroe
             anim = GetComponent<Animator>();
             sprite = GetComponent<SpriteRenderer>();
             fxSource = GetComponent<AudioSource>();
+
+            //Data Life Hero
+            health = DataGame.CurrentHealthHero;
+            speed = player.Speed;
         }
 
         private void Update()
@@ -69,14 +74,10 @@ namespace LSW.Heroe
             }
 
             if (grounded)
-            {
-                maxJump = totalJump;
-            }
+                maxJump = player.TotalJump;
 
             if (Input.GetButtonDown("Fire1") && grounded && Time.time > nextAttack && !anim.GetBool("Walk"))
-            {
                 Attack();
-            }
 
             SetAnimations();
         }
@@ -87,6 +88,7 @@ namespace LSW.Heroe
                 return;
 
             float move = Input.GetAxis("Horizontal");
+            
             rb2D.velocity = new Vector2(move * speed, rb2D.velocity.y);
 
             if ((move < 0f && facingRight) || (move > 0f && !facingRight))
@@ -101,7 +103,7 @@ namespace LSW.Heroe
                 jumping = false;
 
                 rb2D.velocity = new Vector2(rb2D.velocity.x, 0f);
-                rb2D.AddForce(new Vector2(0f, jumpforce));
+                rb2D.AddForce(new Vector2(0f, player.Jumpforce));
             }
         }
 
@@ -137,9 +139,12 @@ namespace LSW.Heroe
         private void DamagePlayer()
         {
             health--;
+            DataGame.CurrentHealthHero = health;
+            _menuInGame.RefreshHealth(health);
+
             PlaySound(fxHurt);
 
-            if (health == 0)
+            if (health <= 0)
             {
                 isDead = true;
                 speed = 0;
@@ -163,7 +168,7 @@ namespace LSW.Heroe
             PlaySound(fxAttack);
 
             anim.SetTrigger("Attack");
-            nextAttack = Time.time + attackRate;
+            nextAttack = Time.time + player.AttackRate;
 
             GameObject cloneAtk = Instantiate(attackPrefab, spawnAttack.position, spawnAttack.rotation);
 

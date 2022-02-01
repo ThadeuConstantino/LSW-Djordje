@@ -21,3 +21,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  health: 3
+  speed: 4
+  jumpforce: 500
+  totalJump: 2
+  attackRate: 0.5

@@ -1,22 +1,16 @@
-﻿namespace LSW.Static
+﻿using UnityEngine.Events;
+
+namespace LSW.Static
 {
-    public static class DataGame
+    public class DataGame
     {
         private static int currentTier;
-        private static int currentLifeHeroe;
+        private static int currentHealthHero;
+        private static int currentScore;
 
         //Getters and Setters
         public static int CurrentTier { get => currentTier; set => currentTier = value; }
-        public static int CurrentLifeHeroe { get => currentLifeHeroe; set => currentLifeHeroe = value; }
-
-        public static void SaveGameData()
-        {
-
-        }
-
-        public static void LoadGameData()
-        {
-
-        }
+        public static int CurrentHealthHero { get => currentHealthHero; set => currentHealthHero = value; }
+        public static int CurrentScore { get => currentScore; set => currentScore = value; }
     }
 }
