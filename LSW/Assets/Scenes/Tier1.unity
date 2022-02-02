@@ -6109,9 +6109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82586f3943fef242b4243ade248bdc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TopY: 4
+  TopY: 3
   DownY: -4
-  speed: 0.03
+  speed: 0.02
 --- !u!4 &1459742954 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8418041045569655469, guid: 11cb0fb891e8a58439466d2814d6fea7, type: 3}
