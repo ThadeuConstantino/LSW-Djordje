@@ -10,11 +10,8 @@ EditorBuildSettings:
     guid: 91f0c322486f44d4684b746ed230a3ff
   - enabled: 1
     path: Assets/Scenes/Tier1.unity
-    guid: cb257d93ad9ee8c41b5228bd37584f2d
+    guid: dd2d7646e24f5204eaea2c160fb3b7e1
   - enabled: 1
     path: Assets/Scenes/Tier2.unity
-    guid: d46dd26678bb858408c241f8b7c57670
-  - enabled: 1
-    path: Assets/Scenes/Boss.unity
-    guid: 2799ec6350febde45af26184801199c1
+    guid: 0e30761c6c0c76f4cb3f2e0f92f84b96
   m_configObjects: {}
