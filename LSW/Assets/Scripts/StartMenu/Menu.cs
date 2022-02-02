@@ -38,6 +38,7 @@ namespace LSW.Menu
 
         public void NewGame()
         {
+            _gamePlayManager.CleanData();
             LoadScene("Tier1");
         }
 

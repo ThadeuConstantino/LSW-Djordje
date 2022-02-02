@@ -21,5 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  score: {fileID: 11400000, guid: e6c13ed8e638a304b86d610f325b0031, type: 2}
   life: 2
   damage: 2
+  speed: 1

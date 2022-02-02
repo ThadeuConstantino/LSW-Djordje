@@ -29,8 +29,11 @@ namespace LSW.Managers
 
         public void CleanData()
         {
+            DataGame.CurrentScore = 0;
             ES3.Save("CurrentScore", 0);
+            DataGame.CurrentTier = 1;
             ES3.Save("CurrentTier", 1);
+            DataGame.CurrentHealthHero = _hero.Health;
             ES3.Save("CurrentHealthHero", _hero.Health);
         }
 

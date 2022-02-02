@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8418041045569655457}
   - component: {fileID: 8418041045569655470}
   m_Layer: 0
-  m_Name: Zombie
+  m_Name: ZombieMan
   m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1066709237
-  m_SortingLayer: 6
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d3f17d592acf642cf848ceff51d58bf4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -123,7 +123,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &8418041045569655457
 MonoBehaviour:
@@ -137,10 +137,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680149f9d660f1b47b42dd25dc006c34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemy: {fileID: 11400000, guid: 6f2d9fff37704bd479b1bdc673df6d89, type: 2}
   groundCheck: {fileID: 8418041045747312719}
-  health: 2
-  speed: 1
   isDead: 0
+  particleDead: {fileID: 1892078723244562, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+  particleDamage: {fileID: 100000, guid: bc98890f6028f444eaa7789bde5e2eeb, type: 3}
 --- !u!95 &8418041045569655470
 Animator:
   serializedVersion: 3

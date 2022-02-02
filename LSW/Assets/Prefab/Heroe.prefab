@@ -157,13 +157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4dac980dc1f29428e48f451d539aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDead: 0
-  health: 3
-  speed: 5
-  jumpforce: 500
+  player: {fileID: 11400000, guid: 69cbaefc658342b4cba5096f4f7833d2, type: 2}
+  _menuInGame: {fileID: 0}
   groundCheck: {fileID: 119124967414026822}
-  totalJump: 2
-  attackRate: 0.5
   spawnAttack: {fileID: 8224286988155652314}
   attackPrefab: {fileID: 773352396900491458, guid: b411a6b89f496f444b572f3883199355, type: 3}
   fxHurt: {fileID: 8300000, guid: 9fc632ac1154e7b429b01387b928f570, type: 3}

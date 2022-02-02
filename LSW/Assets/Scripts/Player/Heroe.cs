@@ -38,6 +38,7 @@ namespace LSW.Heroe
         public AudioClip fxHurt;
         public AudioClip fxJump;
         public AudioClip fxAttack;
+        public AudioClip fxScore;
 
         //Getters and Setters
         public Player Player { get => player; set => player = value; }
@@ -117,6 +118,10 @@ namespace LSW.Heroe
 
             if (other.CompareTag("FloorDead"))
                 Invoke("ReloadLevel", 1f);
+
+            if (other.CompareTag("ScoreCristal"))
+                PlaySound(fxScore);
+
         }
 
         IEnumerator DamageEffect()
@@ -129,7 +134,7 @@ namespace LSW.Heroe
             yield return new WaitForSeconds(.1f);
             sprite.enabled = true;
         }
-        public void PlaySound(AudioClip clip)
+        private void PlaySound(AudioClip clip)
         {
             fxSource.clip = clip;
             fxSource.Play();
