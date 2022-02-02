@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using LSW.Static;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +9,7 @@ namespace LSW.ScenaryObj
     {
         [Header("Name Load New TIER")]
         [SerializeField]
-        private string _nameNextTier;
+        private int _idTier;
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -19,7 +20,8 @@ namespace LSW.ScenaryObj
         IEnumerator DelayNewTier()
         {
             yield return new WaitForSeconds(1f);
-            SceneManager.LoadScene(_nameNextTier, LoadSceneMode.Single);
+            DataGame.CurrentTier = _idTier;
+            SceneManager.LoadScene("Tier" + _idTier.ToString(), LoadSceneMode.Single);
         }
     }
 }

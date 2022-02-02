@@ -1,10 +1,11 @@
 using LSW.Static;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
-namespace LSW.Zombie
+namespace LSW.Zombies
 {
-    public class Zombie : MonoBehaviour
+    public class ZombieEnemy : MonoBehaviour
     {
         public Enemy _enemy;
 
@@ -13,9 +14,9 @@ namespace LSW.Zombie
         private SpriteRenderer sprite;
         private Animator anim;
 
-        private bool tochedWall;
-        private bool facingRight;
-        private int layerMask;
+        public bool tochedWall;
+        public bool facingRight;
+        public int layerMask;
 
         private int health;
         private float speed;
@@ -25,7 +26,10 @@ namespace LSW.Zombie
         public GameObject particleDead;
         public GameObject particleDamage;
 
-        void Start()
+        public UnityEvent OnDeadEnemy;
+        public float Speed { get => speed; set => speed = value; }
+
+        public virtual void Start()
         {
             tochedWall = false;
             facingRight = true;
@@ -34,13 +38,13 @@ namespace LSW.Zombie
             anim = GetComponent<Animator>();
 
             health = _enemy.Life;
-            speed = _enemy.Speed;
+            Speed = _enemy.Speed;
 
             layerMask = (1 << LayerMask.NameToLayer("Ground")) | (1 << LayerMask.NameToLayer("Enemy"));
         }
         
 
-        void Update()
+        public virtual void Update()
         {
             if (isDead)
                 return;
@@ -49,18 +53,18 @@ namespace LSW.Zombie
             {
                 facingRight = !facingRight;
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                speed *= -1;
+                Speed *= -1;
             }
 
             tochedWall = Physics2D.Linecast(transform.position, groundCheck.position, layerMask);
         }
 
-        private void FixedUpdate()
+        public virtual void FixedUpdate()
         {
             if (isDead)
                 return;
 
-            rb2d.velocity = new Vector2(speed, 0f);
+            rb2d.velocity = new Vector2(Speed, 0f);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -76,7 +80,7 @@ namespace LSW.Zombie
             }
         }
 
-        private void DamageEnemy()
+        public virtual void DamageEnemy()
         {
             health--;
 
@@ -84,6 +88,7 @@ namespace LSW.Zombie
 
             if (health == 0)
             {
+                OnDeadEnemy.Invoke();
                 isDead = true;
                 DataGame.CurrentScore += _enemy.Score.Value;
                 Instantiate(particleDead, gameObject.transform.position, gameObject.transform.rotation);
@@ -100,13 +105,13 @@ namespace LSW.Zombie
 
         IEnumerator DamageEffect()
         {
-            float auxSpeed = speed;
-            speed = speed * -1;
+            float auxSpeed = Speed;
+            Speed = Speed * -1;
             sprite.color = Color.red;
             rb2d.AddForce(new Vector2(0f, 200f));
             yield return new WaitForSeconds(.1f);
-            speed = speed * -1;
-            speed = auxSpeed;
+            Speed = Speed * -1;
+            Speed = auxSpeed;
             sprite.color = Color.white;
         }
 

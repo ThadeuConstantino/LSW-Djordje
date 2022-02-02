@@ -1,5 +1,7 @@
-﻿using LSW.MenuGame;
+﻿using LSW.Managers;
+using LSW.MenuGame;
 using LSW.Static;
+using LSW.Zombies;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +15,8 @@ namespace LSW.Heroe
         private Player player;
         [SerializeField]
         private MenuInGame _menuInGame;
+        [SerializeField]
+        private GamePlayManager _gamePlayManager;
 
         private Rigidbody2D rb2D;
         private Animator anim;
@@ -40,11 +44,13 @@ namespace LSW.Heroe
         public AudioClip fxAttack;
         public AudioClip fxScore;
 
+        private bool protectHealth;
         //Getters and Setters
         public Player Player { get => player; set => player = value; }
 
         void Start()
         {
+            protectHealth = false;
             isDead = false;
             maxJump = 0;
             grounded = true;
@@ -113,8 +119,10 @@ namespace LSW.Heroe
             if (isDead)
                 return;
 
-            if (other.CompareTag("Zombie"))
+            if (other.CompareTag("Zombie") && !protectHealth)
+            {
                 DamagePlayer();
+            }
 
             if (other.CompareTag("FloorDead"))
                 Invoke("ReloadLevel", 1f);
@@ -133,6 +141,8 @@ namespace LSW.Heroe
             sprite.enabled = false;
             yield return new WaitForSeconds(.1f);
             sprite.enabled = true;
+
+            protectHealth = false;
         }
         private void PlaySound(AudioClip clip)
         {
@@ -151,14 +161,17 @@ namespace LSW.Heroe
 
             if (health <= 0)
             {
-                isDead = true;
+                //Chama o popup de fim de jogo
+                _gamePlayManager.GameOver(false);
+
+                 isDead = true;
                 speed = 0;
                 rb2D.velocity = new Vector2(0f, 0f);
                 anim.SetTrigger("HeroeDead");
-                Invoke("ReloadLevel", 1f);
             }
             else
             {
+                protectHealth = true;
                 StartCoroutine(DamageEffect());
             }
         }

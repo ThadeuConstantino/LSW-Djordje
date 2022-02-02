@@ -1,4 +1,5 @@
 using LSW.Static;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,6 +12,11 @@ namespace LSW.Managers
 
         [Header("Unity Event")]
         public UnityEvent<bool> OnStartedData;
+
+        private void OnDisable()
+        {
+            Time.timeScale = 1f;
+        }
 
         public void Init()
         {
@@ -29,12 +35,11 @@ namespace LSW.Managers
 
         public void CleanData()
         {
-            DataGame.CurrentScore = 0;
             ES3.Save("CurrentScore", 0);
-            DataGame.CurrentTier = 1;
             ES3.Save("CurrentTier", 1);
-            DataGame.CurrentHealthHero = _hero.Health;
             ES3.Save("CurrentHealthHero", _hero.Health);
+
+            Load();
         }
 
         public void Load()
@@ -49,6 +54,20 @@ namespace LSW.Managers
             ES3.Save("CurrentScore", DataGame.CurrentScore);
             ES3.Save("CurrentTier", DataGame.CurrentTier);
             ES3.Save("CurrentHealthHero", DataGame.CurrentHealthHero);
+            
+        }
+
+        public void GameOver(bool value)
+        {
+            StartCoroutine(DelayClose(value));
+        }
+
+        IEnumerator DelayClose(bool value)
+        {
+            yield return new WaitForSeconds(2f);
+            DataGame.win = value;
+            GameObject.Instantiate(Resources.Load(DataGame.PREFAB_ENDGAME) as GameObject);
+            Time.timeScale = 0f;
         }
 
         private void OnApplicationQuit()

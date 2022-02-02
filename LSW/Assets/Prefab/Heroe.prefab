@@ -159,12 +159,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 11400000, guid: 69cbaefc658342b4cba5096f4f7833d2, type: 2}
   _menuInGame: {fileID: 0}
+  _gamePlayManager: {fileID: 0}
   groundCheck: {fileID: 119124967414026822}
   spawnAttack: {fileID: 8224286988155652314}
   attackPrefab: {fileID: 773352396900491458, guid: b411a6b89f496f444b572f3883199355, type: 3}
   fxHurt: {fileID: 8300000, guid: 9fc632ac1154e7b429b01387b928f570, type: 3}
-  fxJump: {fileID: 8300000, guid: 799c9de392641574587cf5713c2c4836, type: 3}
+  fxJump: {fileID: 8300000, guid: a9321d5d695c0c942b51479f970e4fe0, type: 3}
   fxAttack: {fileID: 8300000, guid: faacec1599e47924488da04c6b07b0b5, type: 3}
+  fxScore: {fileID: 8300000, guid: 248e71568019958478bfaa2f02b0fd21, type: 3}
 --- !u!82 &117522533362541021
 AudioSource:
   m_ObjectHideFlags: 0

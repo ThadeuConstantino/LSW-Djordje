@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ce4f562f46c4214c8c55e11b03d1b51, type: 3}
-  m_Name: Zombie
+  m_Name: Boss
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,7 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  score: {fileID: 11400000, guid: e6c13ed8e638a304b86d610f325b0031, type: 2}
-  life: 2
-  damage: 2
+  score: {fileID: 11400000, guid: 7754233bb967c8e419829452d8a88694, type: 2}
+  life: 3
+  damage: 1
   speed: 1

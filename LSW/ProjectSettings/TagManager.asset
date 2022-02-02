@@ -46,14 +46,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Enemy
-    uniqueID: 3228258059
-    locked: 0
   - name: ObjBack
     uniqueID: 278796487
     locked: 0
+  - name: Enemy
+    uniqueID: 3228258059
+    locked: 0
   - name: Player
     uniqueID: 1544366997
+    locked: 0
+  - name: Attack
+    uniqueID: 1288895789
     locked: 0
   - name: ObjFront
     uniqueID: 2569424917
@@ -66,7 +69,4 @@ TagManager:
     locked: 0
   - name: Plataforms
     uniqueID: 4119024167
-    locked: 0
-  - name: Attack
-    uniqueID: 1288895789
     locked: 0
