@@ -19,7 +19,7 @@ namespace LSW.ScenaryObj
 
         IEnumerator DelayNewTier()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(.5f);
             DataGame.CurrentTier = _idTier;
             SceneManager.LoadScene("Tier" + _idTier.ToString(), LoadSceneMode.Single);
         }

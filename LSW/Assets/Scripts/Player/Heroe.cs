@@ -125,7 +125,10 @@ namespace LSW.Heroe
             }
 
             if (other.CompareTag("FloorDead"))
-                Invoke("ReloadLevel", 1f);
+            {
+                //Chama o popup de fim de jogo
+                _gamePlayManager.GameOver(false);
+            }
 
             if (other.CompareTag("ScoreCristal"))
                 PlaySound(fxScore);
@@ -174,11 +177,6 @@ namespace LSW.Heroe
                 protectHealth = true;
                 StartCoroutine(DamageEffect());
             }
-        }
-
-        public void ReloadLevel()
-        {
-            SceneManager.LoadScene("StartMenu", LoadSceneMode.Single);
         }
 
         private void Attack()

@@ -46,6 +46,7 @@ namespace LSW.MenuGame
         //Close Game
         public void CloseGame()
         {
+            _gamePlayManager.Save();
             SceneManager.LoadScene("StartMenu", LoadSceneMode.Single);
         }
 
