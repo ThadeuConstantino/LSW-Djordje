@@ -1,9 +1,6 @@
 # LSW-Djordje
-Interview
-
 LSW Documentation:
-First of all, I would like to thank you for the opportunity to participate in this selection process
-and hope to meet the company's expectations.
+
 For this project, I decided to use different techniques to show different skills. In order to
 organize the character's data and the enemies I used Scriptable Objects, which facilitates
 the organization and is a technique widely used in the games industry.
